@@ -1,8 +1,8 @@
-Projeto Django: Dados Financeiros de Commodities
+# Projeto Django: Dados Financeiros de Commodities
 Este projeto Django tem como objetivo gerenciar e visualizar dados financeiros de commodities utilizando a API da Alpha Vantage. O projeto foi desenvolvido para fins de avaliação e utiliza chaves de API demo.
 
 
-Funcionalidades
+# Funcionalidades
 
 Listagem de Commodities: Exibe todas as commodities cadastradas no banco de dados.
 Busca e Atualização de Dados: Permite a atualização dos dados das commodities a partir da API da Alpha Vantage.
