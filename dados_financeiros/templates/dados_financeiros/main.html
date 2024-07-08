@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotações Commodities</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header> <a href=""><img src="https://agromercantil.com.br/wp-content/uploads/2022/03/logo.svg" alt="Logo" class="logo"></a> </header>
+   
+    <h1>Busca de Preço de Commodities</h1>
+    <p>Consulte a API AlphaVantage e armazene as informações no banco de dados </p>
+    <form action="{% url 'fetching_data' %}" method="post">
+        {% csrf_token %}
+        <label for="commoditySelect">Consulte a API AlphaVantage</label>
+        <select name="commodity" id="commoditySelect">
+            <option value="" disabled selected>Selecione a Commodity</option>
+            <option value="SUGAR">Açúcar</option>
+            <option value="COTTON">Algodão</option>
+            <option value="COFFEE">Café</option>
+            <option value="CORN">Milho</option>
+            <option value="WHEAT">Trigo</option>
+        </select>
+        <input type="submit" style="background-color: blue;" value="Atualizar Banco de Dados via API">
+    </form>
+
+    <form action="{% url 'showing_data' %}" method="get">
+        {% csrf_token %}
+        <label for="">Consulte o Banco de Dados</label>
+        <select name="commodity_data" id="commoditySelect">
+            <option value="" disabled selected>Selecione a Commodity</option>
+            <option value="Global Price of Sugar">Açúcar</option>
+            <option value="Global Price of Cotton">Algodão</option>
+            <option value="Global Price of Coffee">Café</option>
+            <option value="Global Price of Corn">Milho</option>
+            <option value="Global Price of Wheat">Trigo</option>
+        </select>
+        <input type="submit" value="Consultar Banco de Dados">
+    </form>
+    <div class="messages">
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% if commodity %}
+    <h2>Commodity: {{ commodity.name }}</h2>
+    <p>Interval: {{ commodity.interval }}</p>
+    <p>Unit: {{ commodity.unit }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Cotação US$</th>
+                <th>Anotações</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in commodity.data.all %}
+                <tr>
+                    <td>{{ data.date }}</td>
+                    <td>{{ data.value }}</td>
+                    <td>{{ data.notes }}</td>
+                    <td class="action-buttons">
+                        <form class="note-form" action="{% url 'edit_notes' data.id %}" method="post">
+                            {% csrf_token %}
+                            <textarea name="notes" placeholder="Edite a nota"></textarea>
+                            <button type="submit">Salvar</button>
+                        </form>
+                        <form action="{% url 'delete_note' data.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button">Deletar Anotação</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form action="{% url 'delete_data' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="commodity" value="{{ commodity.name }}">
+        <input type="submit" value="Limpar Banco de Dados" class="delete-button" id="clean_db">
+    </form>
+{% endif %}
+
+</body>
+</html>
