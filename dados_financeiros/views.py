@@ -65,7 +65,7 @@ def showing_data(request):
             commodity = get_object_or_404(Commodity, name=commodity_name)
             return render(request, 'dados_financeiros/main.html', {'commodity': commodity})
         else:
-            return HttpResponse('No commodity selected', status=400)
+            return HttpResponse('Nenhuma commodity ', status=400)
     return HttpResponse('Método não permitido', status=405)
 
 def delete_data(request):
@@ -73,8 +73,8 @@ def delete_data(request):
         commodity_name = request.POST.get('commodity')
         commodity = get_object_or_404(Commodity, name=commodity_name)
         commodity.data.all().delete()
-        return HttpResponse('Data deleted successfully')
-    return HttpResponse('Method not allowed', status=405)
+        return redirect('index') 
+    return HttpResponse('Método não permitido', status=405)
 
 def edit_notes(request,data_id):
    if request.method == 'POST':
@@ -90,4 +90,4 @@ def delete_note(request,data_id):
         commodity_data.notes = None
         commodity_data.save()
         return redirect('index') 
-    return HttpResponse('Method not allowed', status=405)
+    return HttpResponse('Método não permitido', status=405)
