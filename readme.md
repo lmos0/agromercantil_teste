@@ -2,6 +2,12 @@
 
 Este projeto Django tem como objetivo gerenciar e visualizar dados financeiros de commodities utilizando a API da Alpha Vantage. O projeto foi desenvolvido para fins de avaliação e utiliza chaves de API demo.
 
+
+## Requerimentos:
+
+Django==5.0.4
+requests==2.31.0
+
 ## Funcionalidades
 
 - Listagem de Commodities: Exibe todas as commodities cadastradas no banco de dados.
@@ -13,6 +19,10 @@ Este projeto Django tem como objetivo gerenciar e visualizar dados financeiros d
 ### Após clonar o repositório, siga os seguintes passos para instalar e configurar o projeto Django:
 
 Na raíz do projeto, realize as migrações do banco de dados:
+
+```bash
+python manage.py makemigrations
+```
 
 ```bash
 python manage.py migrate

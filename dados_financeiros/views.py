@@ -57,15 +57,19 @@ def fetching_data(request):
         return render(request, 'dados_financeiros/main.html', {'commodities': commodities})
     return HttpResponse('Estrutura de dados inválida', status=400)
 
-
 def showing_data(request):
     if request.method == 'GET':
         commodity_name = request.GET.get('commodity_data')
         if commodity_name:
-            commodity = get_object_or_404(Commodity, name=commodity_name)
-            return render(request, 'dados_financeiros/main.html', {'commodity': commodity})
+            try:
+                commodity = Commodity.objects.get(name=commodity_name)
+                return render(request, 'dados_financeiros/main.html', {'commodity': commodity})
+            except Commodity.DoesNotExist:
+                messages.error(request, 'Nenhuma commodity encontrada com o nome fornecido.')
+                return redirect('index')
         else:
-            return HttpResponse('Nenhuma commodity ', status=400)
+            messages.error(request, 'Nenhuma commodity foi selecionada.')
+            return redirect('index')
     return HttpResponse('Método não permitido', status=405)
 
 def delete_data(request):
