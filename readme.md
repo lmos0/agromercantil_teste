@@ -56,3 +56,22 @@ Os dados carregados incluirão as anotações associadas a cada entrada, que pod
 **Nota Importante:**
 Por padrão, o banco de dados inicia vazio. Portanto, é necessário utilizar a função de Atualizar Banco de Dados via API antes de realizar qualquer consulta no banco de dados.
 
+
+### Opcional Instalar via Ambiente Virtual
+
+1. Instale o ambiente virtual 
+    ```bash
+    python3 -m venv env
+    ```
+2. Acesse o diretório 
+    ```bash
+    cd your_directory
+    ```
+3. Ative o ambiente virtual
+    ```bash
+    source env/bin/activate
+    ```
+4. Instale os pacotes necessários:
+    ```bash
+    pip install -r requirements.txt
+    ```
