@@ -65,7 +65,7 @@ def showing_data(request):
                 commodity = Commodity.objects.get(name=commodity_name)
                 return render(request, 'dados_financeiros/main.html', {'commodity': commodity})
             except Commodity.DoesNotExist:
-                messages.error(request, 'Nenhuma commodity encontrada com o nome fornecido.')
+                messages.error(request, 'Nenhuma commodity encontrada no banco de dados com o nome fornecido. Tente atualizar os dados com a API.')
                 return redirect('index')
         else:
             messages.error(request, 'Nenhuma commodity foi selecionada.')
