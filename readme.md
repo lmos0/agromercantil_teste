@@ -21,17 +21,17 @@ requests==2.31.0
 Na raíz do projeto, realize as migrações do banco de dados:
 
 ```bash
-python manage.py makemigrations
+python3 manage.py makemigrations
 ```
 
 ```bash
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 Inicie o servidor:
 
 ```bash
-python manage.py runserver
+python3 manage.py runserver
 ```
 
 ### Abra o navegador e vá para http://127.0.0.1:8000/
